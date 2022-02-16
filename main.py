@@ -25,10 +25,7 @@ class Node:
         return self.coord
     def get_id(self):
         return self.id
-    # def attach_childrenObj(self, EdgeObj):
-    #     self.childrenObj.append(EdgeObj)
-    # def get_childrenObj(self):
-    #     return self.childrenObj
+
 
 
 class Edge: 
@@ -60,10 +57,7 @@ class Edge:
         self.cost = cost
     def get_cost(self):
         return self.cost
-    # def attach_ToObj(self,NodeObj):
-    #     self.ToNode = NodeObj
-    # def get_ToObj(self):
-    #     return self.ToObj
+
 
 
 def Task1(startNodeStr,endNodeStr,Nodes,Edges):
@@ -205,6 +199,33 @@ def Task3(startNodeStr,endNodeStr,Nodes,Edges,Energylimit, Kenergy,Kdistance):
     return 0
 
 
+def printout(pathArr):
+    if(len(pathArr) > 1):
+        edgeCount = 1
+        totalDist = 0 
+        totalEnergy = 0
+        path = pathArr
+
+        pathStr = "S->" + path[0] + "->"
+        while edgeCount < len(path):
+            EdgeInstanceId = path[edgeCount - 1] + "," + path[edgeCount]
+            EdgeInstanceObj = Edges.get(EdgeInstanceId)
+            totalDist = totalDist + EdgeInstanceObj.get_dist()
+            totalEnergy = totalEnergy + EdgeInstanceObj.get_cost()
+            pathStr = pathStr + path[edgeCount] + "->"
+            edgeCount+= 1
+            #print(pathStr)
+        pathStr = pathStr + "E"
+
+        print("Shortest path:",pathStr)
+        print("Shortest distance:",totalDist)
+        print("Total energy cost:",totalEnergy)
+    else:
+        pathStr = "S->" + pathArr[0] + "->E"
+        print("Shortest path:",pathStr)
+        print("Shortest distance:",0)
+        print("Total energy cost:",0)
+
 if __name__  == '__main__':
 
     coord = json.load(open('Data/Coord.json',)) 
@@ -227,9 +248,13 @@ if __name__  == '__main__':
         y.set_cost(cost[y.get_id()])
         y.set_dist(dist[y.get_id()])
 
-    print(Task1("1","50",Nodes,Edges))
-    print(Task2("1","50",Nodes,Edges,287932))
-    print(Task3("1","50",Nodes,Edges,287932, 0.5, 0.5))
+    Task1out = Task1("1","50",Nodes,Edges)
+    Task2out = Task2("1","50",Nodes,Edges,287932)
+    Task3out = Task3("1","50",Nodes,Edges,287932, 0.5, 0.5)
 
 
+    printout(Task1out[1])
+    printout(Task2out[1])
+    printout(Task3out[3])
+        
 
