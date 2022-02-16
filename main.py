@@ -4,6 +4,7 @@
 
 import json
 from queue import PriorityQueue
+import time
 
 
 class Node:
@@ -248,13 +249,23 @@ if __name__  == '__main__':
         y.set_cost(cost[y.get_id()])
         y.set_dist(dist[y.get_id()])
 
+    Task1starttime = time.time()
     Task1out = Task1("1","50",Nodes,Edges)
+    Task1timetaken = time.time() - Task1starttime
+
+    Task2starttime = time.time()
     Task2out = Task2("1","50",Nodes,Edges,287932)
-    Task3out = Task3("1","50",Nodes,Edges,287932, 0.5, 0.5)
+    Task2timetaken = time.time() - Task2starttime
 
+    Task3starttime = time.time()
+    Task3out = Task3("1","50",Nodes,Edges,287932, 0.2, 0.8)
+    Task3timetaken = time.time() - Task3starttime
 
+    
     printout(Task1out[1])
+    print("TimeTaken: ",Task1timetaken)
     printout(Task2out[1])
+    print("TimeTaken: ",Task2timetaken)
     printout(Task3out[3])
-        
+    print("TimeTaken: ",Task3timetaken)    
 
